@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>  
+    <!-- 实体类,简称 -设置别名 -->  
+    <typeAliases>  
+        <typeAlias alias="Resources" type="com.wanhejia.domain.Resources" />    
+        <typeAlias type="com.wanhejia.utils.PageData" alias="pd"/>
+		<!-- 分页 -->
+		<typeAlias type="com.wanhejia.utils.Page" alias="Page"/>
+    </typeAliases>
+    <!--<plugins>
+		<plugin interceptor="com.wanhejia.utils.PagePlugin">
+			<property name="dialect" value="mysql"/>
+			<property name="pageSqlId" value=".*listPage.*"/>
+		</plugin>
+	</plugins>
+    --><mappers> 
+        <mapper resource="com/wanhejia/dao/IUserDao.xml" />  
+        <mapper resource="com/wanhejia/dao/IResourcesDao.xml" />  
+        <mapper resource="com/wanhejia/dao/IPermissionDao.xml" />  
+   </mappers>  
+</configuration> 
