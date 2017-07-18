@@ -38,4 +38,12 @@ public class UserController {
 		request.setAttribute("list", list);
 		return "/WEB-INF/jsp/user/list";
 	}
+	@RequestMapping(value = "update")
+	public String update(HttpServletRequest request) {
+		User user=new User();
+		user.setUsername("1111");
+		user.setDeletestatus(1);
+		userService.updateUser(user);
+		return "/WEB-INF/jsp/user/list";
+	}
 }

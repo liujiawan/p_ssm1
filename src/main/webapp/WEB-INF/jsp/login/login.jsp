@@ -1,5 +1,6 @@
 
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -22,7 +23,11 @@ $(function(){
 		$('.login-form').fadeOut('slow', function(c){
 	  		$('.login-form').remove();
 		});
-	});	
+	});
+	if('${hadLogin}'==1){
+	    alert("您已经登录成功");
+	    window.location.href='/index.shtml';
+	}
 });
 	  
 </script>
@@ -45,6 +50,7 @@ $(function(){
 					<input type="password" name = "password" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
 						</div>
 			</form>
+	 <c:if test="${error!=''}">${error}</c:if>
 	<div class="signin">
 		<input type="submit"value="Login" onclick="loginsubmit()" >
 	</div>

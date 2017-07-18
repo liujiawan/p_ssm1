@@ -9,6 +9,8 @@ import com.wanhejia.base.page.dao.BaseDao;
 import com.wanhejia.domain.User;
 import com.wanhejia.service.IUserService;
 import com.wanhejia.utils.PageData;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * 继承BaseDao泛型是IUserDao;
  * @author jack
@@ -32,5 +34,10 @@ public class UserServiceImpl extends BaseDao implements IUserService {
 			Integer pageNo, Integer pageSize) {
 		return super.findPage("com.wanhejia.dao.IUserDao.findAll", "com.wanhejia.dao.IUserDao.findCount", map, pageNo, pageSize);
 	}
-	
+	@Transactional
+	public Integer updateUser(User user) {
+		//如果我这样写报错，执行回滚return Integer.parseInt((String) super.update("com.wanhejia.dao.IUserDao.updateUser",user));
+		return (Integer)super.update("com.wanhejia.dao.IUserDao.updateUser",user);
+	}
+
 }

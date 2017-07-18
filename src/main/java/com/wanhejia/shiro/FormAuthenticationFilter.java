@@ -1,5 +1,4 @@
 package com.wanhejia.shiro;
-
 import java.io.PrintWriter;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -11,8 +10,6 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 /**
  * 重写验证的方法
- * @author jack
- *
  */
 public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.FormAuthenticationFilter{ 
 	   public static final String DEFAULT_CAPTCHA_PARAM = "captcha"; 

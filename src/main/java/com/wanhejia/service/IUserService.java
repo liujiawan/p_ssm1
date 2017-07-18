@@ -11,4 +11,6 @@ public interface IUserService {
 	List<User> findByNames(String username);
 	Pagination<User> findAllAndPage(Map<String, Object> map, Integer pageNo,
 			Integer pageSize);
+
+	Integer updateUser(User user);
 }

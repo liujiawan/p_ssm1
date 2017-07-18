@@ -12,7 +12,6 @@ public class MethodCacheInterceptor implements MethodInterceptor {
     private Logger logger = LoggerFactory.getLogger(MethodCacheInterceptor.class);
     private RedisUtil redisUtil;
     private Long defaultCacheExpireTime=3600L; // 缓存默认的过期时间
-    @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         Object value = null;
 
@@ -32,7 +31,6 @@ public class MethodCacheInterceptor implements MethodInterceptor {
                 final String tkey = key;
                 final Object tvalue = value;
                 new Thread(new Runnable() {
-                    @Override
                     public void run() {
                             redisUtil.set(tkey, tvalue, defaultCacheExpireTime);
                     }

@@ -20,6 +20,9 @@
 	  	 <include refid="where_all" />
 	  	 <include refid="limit_sql" />
 	  </select>
+	<insert id="updateUser" parameterType="com.wanhejia.domain.User" >
+		insert into u_user(email, nickname,status) values(#{username}, #{username},#{deletestatus})
+	</insert>
 	   <select id="findCount" resultType="Integer" >
  	 		select count(1) from  ly_user
  	 		<include refid="where_all" />

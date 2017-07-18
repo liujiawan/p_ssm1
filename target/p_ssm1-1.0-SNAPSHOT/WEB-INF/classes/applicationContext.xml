@@ -111,47 +111,52 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
    		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
        	<property name="basePackage" value="com.wanhejia.dao"/> 
-    </bean> 
-    
-     <!-- jedis 配置 -->
-    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxIdle" value="${redis.maxIdle}"/>
-        <property name="maxWaitMillis" value="${redis.maxWait}"/>
-        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
     </bean>
-    <!-- redis服务器中心 -->
-    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-        <property name="poolConfig" ref="poolConfig"/>
-        <property name="port" value="${redis.port}"/>
-        <property name="hostName" value="${redis.host}"/>
-        <property name="password" value="${redis.password}"/>
-        <property name="timeout" value="${redis.timeout}"/>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource2" />
+        <qualifier value="isap"/>
     </bean>
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-        <property name="connectionFactory" ref="connectionFactory"/>
-        <property name="keySerializer">
-            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
-        </property>
-        <property name="valueSerializer">
-            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
-        </property>
-    </bean>
-    <!-- cache配置 -->
-    <bean id="methodCacheInterceptor" class="com.wanhejia.intercept.MethodCacheInterceptor">
-        <property name="redisUtil" ref="redisUtil"/>
-    </bean>
-    <bean id="redisUtil" class="com.wanhejia.utils.RedisUtil">
-        <property name="redisTemplate" ref="redisTemplate"/>
-    </bean>
-    <bean id="dataSourceExchange" class="com.wanhejia.utils.DataSourceExchange"/>
-    <aop:config proxy-target-class="false">
-        <aop:pointcut id="controllerMethodPointcut" expression="execution(* com.wanhejia.service.*.findPermissionByUserId*(..))"/>
-        <aop:advisor advice-ref="methodCacheInterceptor" pointcut-ref="controllerMethodPointcut"/>
-        <!--所有数据库操作的方法加入切面-->
-        <aop:aspect ref="dataSourceExchange">
-            <aop:pointcut id="dataSourcePointcut" expression="execution(* com.wanhejia.service.*.findByNames(..))"/>
-            <aop:before pointcut-ref="dataSourcePointcut" method="before"/>
-            <aop:after pointcut-ref="dataSourcePointcut" method="after"/>
-        </aop:aspect>
-    </aop:config>
+    <!--引入注解的方式-->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    <!--&lt;!&ndash; jedis 配置 &ndash;&gt;-->
+    <!--<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
+        <!--<property name="maxIdle" value="${redis.maxIdle}"/>-->
+        <!--<property name="maxWaitMillis" value="${redis.maxWait}"/>-->
+        <!--<property name="testOnBorrow" value="${redis.testOnBorrow}"/>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; redis服务器中心 &ndash;&gt;-->
+    <!--<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">-->
+        <!--<property name="poolConfig" ref="poolConfig"/>-->
+        <!--<property name="port" value="${redis.port}"/>-->
+        <!--<property name="hostName" value="${redis.host}"/>-->
+        <!--<property name="password" value="${redis.password}"/>-->
+        <!--<property name="timeout" value="${redis.timeout}"/>-->
+    <!--</bean>-->
+    <!--<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">-->
+        <!--<property name="connectionFactory" ref="connectionFactory"/>-->
+        <!--<property name="keySerializer">-->
+            <!--<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>-->
+        <!--</property>-->
+        <!--<property name="valueSerializer">-->
+            <!--<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; cache配置 &ndash;&gt;-->
+    <!--<bean id="methodCacheInterceptor" class="com.wanhejia.intercept.MethodCacheInterceptor">-->
+        <!--<property name="redisUtil" ref="redisUtil"/>-->
+    <!--</bean>-->
+    <!--<bean id="redisUtil" class="com.wanhejia.utils.RedisUtil">-->
+        <!--<property name="redisTemplate" ref="redisTemplate"/>-->
+    <!--</bean>-->
+    <!--<bean id="dataSourceExchange" class="com.wanhejia.utils.DataSourceExchange"/>-->
+    <!--<aop:config proxy-target-class="false">-->
+        <!--<aop:pointcut id="controllerMethodPointcut" expression="execution(* com.wanhejia.service.*.findPermissionByUserId*(..))"/>-->
+        <!--&lt;!&ndash;<aop:advisor advice-ref="methodCacheInterceptor" pointcut-ref="controllerMethodPointcut"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;所有数据库操作的方法加入切面&ndash;&gt;-->
+        <!--<aop:aspect ref="dataSourceExchange">-->
+            <!--<aop:pointcut id="dataSourcePointcut" expression="execution(* com.wanhejia.service.*.findByNames(..))"/>-->
+            <!--<aop:before pointcut-ref="dataSourcePointcut" method="before"/>-->
+            <!--<aop:after pointcut-ref="dataSourcePointcut" method="after"/>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
  </beans>
