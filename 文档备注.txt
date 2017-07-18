@@ -1,0 +1,10 @@
+1.项目用到了shiro
+项目路径是:项目名称/login.shtml
+登录的用户名是admin，密码是123456
+2.事务的验证见UserController，访问/user/update.shtml
+事务的控制在service层中
+UserServiceImpl中的updateUser方法，进行过测试
+3.数据库用的是我自己的线上的数据库
+jdbc.url=jdbc\:mysql\://ko72vxt7.zzcdb.dnstoo.com\:5505/ssm?useUnicode\=true&characterEncoding\=utf-8
+jdbc.username=ssm_f
+jdbc.password=liujiawan159
