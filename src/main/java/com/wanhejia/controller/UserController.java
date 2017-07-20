@@ -46,4 +46,20 @@ public class UserController {
 		userService.updateUser(user);
 		return "/WEB-INF/jsp/user/list";
 	}
+	@RequestMapping(value = "update1")
+	public String update1(HttpServletRequest request) {
+		User user=new User();
+		user.setUsername("1111");
+		user.setDeletestatus(1);
+		userService.updateUser1(user);
+		return "/WEB-INF/jsp/user/list";
+	}
+	@RequestMapping(value = "update2")
+	public String update2(HttpServletRequest request) {
+		User user=new User();
+		user.setUsername("1111");
+		user.setDeletestatus(1);
+		userService.updateUser2(user);
+		return "/WEB-INF/jsp/user/list";
+	}
 }

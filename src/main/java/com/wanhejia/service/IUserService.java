@@ -13,4 +13,6 @@ public interface IUserService {
 			Integer pageSize);
 
 	Integer updateUser(User user);
+	Integer updateUser1(User user);
+	Integer updateUser2(User user);
 }

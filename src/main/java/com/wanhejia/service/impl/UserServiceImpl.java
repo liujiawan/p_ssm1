@@ -39,5 +39,15 @@ public class UserServiceImpl extends BaseDao implements IUserService {
 		//如果我这样写报错，执行回滚return Integer.parseInt((String) super.update("com.wanhejia.dao.IUserDao.updateUser",user));
 		return (Integer)super.update("com.wanhejia.dao.IUserDao.updateUser",user);
 	}
-
+	//这种情况下插入成功，但是会出现异常
+	public Integer updateUser1(User user) {
+		//如果我这样写报错，执行回滚return Integer.parseInt((String) super.update("com.wanhejia.dao.IUserDao.updateUser",user));
+		return Integer.parseInt((String) super.update("com.wanhejia.dao.IUserDao.updateUser",user));
+	}
+	@Transactional
+	//这种情况下插入不成功
+	public Integer updateUser2(User user) {
+		//如果我这样写报错，执行回滚return Integer.parseInt((String) super.update("com.wanhejia.dao.IUserDao.updateUser",user));
+		return Integer.parseInt((String) super.update("com.wanhejia.dao.IUserDao.updateUser",user));
+	}
 }
